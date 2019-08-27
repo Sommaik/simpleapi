@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mydb = require('../helper/mydb')
+const auth = require('../helper/auth')
 
 router.get('', (req, res) => {
   mydb.executeSql('select * from customers', (err, result) => {
@@ -12,7 +13,7 @@ router.get('', (req, res) => {
   })
 })
 
-router.post('', (req, res) => {
+router.post('', auth.authenticate(), (req, res) => {
   const sql = `
     insert into customers(
         customer_first_name,
@@ -41,7 +42,7 @@ router.post('', (req, res) => {
   })
 })
 
-router.delete('/:customerId', (req, res) => {
+router.delete('/:customerId', auth.authenticate(), (req, res) => {
   const sql = `
   delete from customers
   where customer_id = ${req.params.customerId}
@@ -55,7 +56,7 @@ router.delete('/:customerId', (req, res) => {
   })
 })
 
-router.put('/:customerId', (req, res) => {
+router.put('/:customerId', auth.authenticate(), (req, res) => {
   const sql = `
   update customers
   set customer_first_name = '${req.body.firstName}',
