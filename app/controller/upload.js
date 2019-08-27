@@ -5,11 +5,8 @@ const upload = multer({
   dest: '/Users/sommaik/Downloads/simpleapi'
 })
 
-router.post(
-  '/image',
-  upload.single('image', (req, res) => {
-    res.end('upload complete')
-  })
-)
+router.post('/image', upload.single('image'), (req, res) => {
+  res.end('upload complete')
+})
 
 module.exports = router
