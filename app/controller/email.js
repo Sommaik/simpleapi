@@ -12,7 +12,7 @@ router.post('/send', (req, res) => {
   }
   transport.sendMail(mail, (err, result) => {
     if (err) {
-      res.end(err)
+      res.json(err)
     } else {
       res.json(result)
     }
