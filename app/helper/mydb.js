@@ -1,20 +1,16 @@
 const mysql = require('mysql')
 const { waterfall } = require('async')
+const config = require('config')
 
 class MyDB {
   constructor() {
-    this.pool = mysql.createPool({
-      host: 'localhost',
-      user: 'root', // root
-      password: '1234', //
-      database: 'ex',
-      connectionLimit: 10,
-      multipleStatements: true
-    })
+    this.pool = mysql.createPool(config.get('mysql'))
   }
+
   getConnection(cb) {
     pool.getConnection(cb)
   }
+
   executeSql(sql, cb) {
     waterfall(
       [
