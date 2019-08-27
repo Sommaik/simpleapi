@@ -6,6 +6,7 @@ const customer = require('./controller/customer')
 const login = require('./controller/login')
 const auth = require('./helper/auth')
 const upload = require('./controller/upload')
+const email = require('./controller/email')
 
 const app = express()
 app.use(cors())
@@ -21,5 +22,6 @@ app.use('/welcome', welcome)
 app.use('/customer', customer)
 app.use('/login', login)
 app.use('/upload', upload)
+app.use('/email', email)
 
 module.exports = app
