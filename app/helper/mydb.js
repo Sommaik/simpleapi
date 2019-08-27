@@ -13,12 +13,14 @@ class MyDB {
     })
   }
   getConnection(cb) {
-    this.pool.getConnection(cb)
+    pool.getConnection(cb)
   }
   executeSql(sql, cb) {
     waterfall(
       [
-        this.getConnection,
+        callback => {
+          this.pool.getConnection(callback)
+        },
         (con, callback) => {
           con.query(sql, (err, result) => {
             this.pool.releaseConnection(con)
