@@ -1,33 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const mysql = require('mysql')
-const waterfall = require('async').waterfall
-
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root', // root
-  password: '1234', //
-  database: 'ex',
-  connectionLimit: 10,
-  multipleStatements: true
-})
-
-function step1(cb) {
-  pool.getConnection(cb)
-}
-
-function step2(con, cb) {
-  con.query('select * from customers', (err, result) => {
-    //   con.close();
-    pool.releaseConnection(con)
-    cb(err, result)
-  })
-}
+const mydb = require('../helper/mydb')
 
 router.get('', (req, res) => {
-  waterfall([step1, step2], (err, result) => {
+  mydb.executeSql('select * from customers', (err, result) => {
     if (err) {
-      res.send(err)
+      res.end(err)
     } else {
       res.json(result)
     }
