@@ -7,5 +7,13 @@
     "database": "ex",
     "connectionLimit": 10,
     "multipleStatements": true
+  },
+  "Config": {
+    "auth": {
+      "jwtSecret": "5CD81B18BD64EA3CCE9BEF3E1B672",
+      "jwtSession": {
+        "session": false
+      }
+    }
   }
 }
